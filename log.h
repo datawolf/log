@@ -305,4 +305,6 @@ extern int lcr_log_fd;
 extern int lcr_log_init(const char *name, const char *file,
 		const char *priority, const char *prefix, int quiet,
 		const char *lcrpath);
+extern void lcr_log_enable_syslog(void);
+extern int lcr_log_syslog(int facility);
 #endif /* __LCR_LOG_H */

@@ -363,3 +363,22 @@ extern int lcr_log_init(const char *name, const char *file,
 	}
 	return ret;
 }
+
+extern int lcr_log_syslog(int facility) {
+	struct lcr_log_appender *appender;
+
+	openlog(log_prefix, LOG_PID, facility);
+	if (!lcr_log_category_lcr.appender) {
+		lcr_log_category_lcr.appender = &log_appender_syslog;
+		return 0;
+	}
+	appender = lcr_log_category_lcr.appender;
+	while(appender->next != NULL)
+		appender = appender->next;
+	appender->next = &log_appender_syslog;
+
+	return 0;
+}
+extern void lcr_log_enable_syslog(void) {
+	syslog_enable = 1;
+}
