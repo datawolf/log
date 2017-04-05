@@ -332,6 +332,9 @@ extern int lcr_log_init(const char *name, const char *file,
 
 	if (priority)
 		lcr_priority = lcr_log_priority_to_int(priority);
+
+	lcr_log_category_lcr.priority = lcr_priority;
+
 	if (!quiet)
 		lcr_log_category_lcr.appender->next = &log_appender_stderr;
 
@@ -352,8 +355,7 @@ extern int lcr_log_init(const char *name, const char *file,
 		if (!lcrpath)
 			lcrpath = "/var/log/lcr";
 
-		if (ret  < 0)
-			ret = _lcr_log_set_file(name, lcrpath, 1);
+		ret = _lcr_log_set_file(name, lcrpath, 1);
 
 	}
 
